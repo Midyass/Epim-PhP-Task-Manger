@@ -2,6 +2,7 @@
 
 require_once("./config/database.php");
 
+
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $query = "DELETE FROM students WHERE id = $id";

@@ -10,6 +10,7 @@ $result = mysqli_query($connection, $query);
 $students_number = mysqli_num_rows($result);
 $students = mysqli_fetch_all($result, mode: MYSQLI_ASSOC);
 
+
 $errors = [];
 if (!empty($_SESSION["errors"])) {
     $errors = $_SESSION["errors"];
@@ -56,16 +57,20 @@ if (!empty($_SESSION["errors"])) {
                     <?php else: ?>
                         <?php foreach ($students as $key => $value): ?>
                             <tr>
-                                <td><?= +1; ?></td>
+                                <td><?= $value['id']; ?></td>
                                 <td><?= $value['first_name'] ?></td>
                                 <td><?= $value['last_name'] ?></td>
                                 <td><?= $value['gender'] ?></td>
                                 <td><?= $value['class'] ?></td>
                                 <td>
-                                    <form action="index.php?action=delete" method="POST" style="display:inline;">
-                                        <input type="hidden" name="user_index" value="<?= $key; ?>">
+                                    <!-- old Method -->
+                                    <!-- <form action="delete.php?id=<?= $value['id'] ?>" method="POST" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?= $value['id'] ?>">
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
+                                    </form> -->
+                                    <!-- easy Method -->
+                                    <a href="delete.php?id=<?= $value['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                                    <a href="edit.php?id=<?= $value['id'] ?>" class="btn btn-danger btn-sm">Edit</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
