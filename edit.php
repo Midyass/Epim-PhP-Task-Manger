@@ -45,11 +45,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     $query = "UPDATE students SET first_name =  '$firstName', last_name = '$lastName', gender = '$gender', class = '$class' WHERE id = '$id'";
-
+    echo $query;
     if (mysqli_query($connection, $query)) {
         if (mysqli_affected_rows($connection) > 0) {
-            header("Location: index.php");
-            exit();
+            echo $query;
+            // header("Location: index.php");
+            // exit();
         } else {
             echo "Matra walo";
         }

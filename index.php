@@ -32,21 +32,21 @@ if (!empty($_SESSION["errors"])) {
         <?php endif; ?>
         <div class="d-flex justify-content-between mb-3">
             <h3>User List</h3>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                Add New User
+            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <i class="fa-solid fa-user-plus"></i> Add
             </button>
         </div>
 
         <div class="table-responsive p-3 mb-5 bg-white shadow-sm rounded">
-            <table class="table table-hover text-center">
+            <table class="table table-white table-striped-columns">
                 <thead class="table-dark">
                     <tr>
-                        <th>#</th>
-                        <th>First</th>
-                        <th>Last</th>
-                        <th>gender</th>
-                        <th>class</th>
-                        <th>Action</th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">First</th>
+                        <th class="text-center">Last</th>
+                        <th class="text-center">gender</th>
+                        <th class="text-center">class</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,20 +57,27 @@ if (!empty($_SESSION["errors"])) {
                     <?php else: ?>
                         <?php foreach ($students as $key => $value): ?>
                             <tr>
-                                <td><?= $value['id']; ?></td>
-                                <td><?= $value['first_name'] ?></td>
-                                <td><?= $value['last_name'] ?></td>
-                                <td><?= $value['gender'] ?></td>
-                                <td><?= $value['class'] ?></td>
-                                <td>
+                                <td class="text-center"><?= $value['id']; ?></td>
+                                <td class="text-center"><?= $value['first_name'] ?></td>
+                                <td class="text-center"><?= $value['last_name'] ?></td>
+                                <td class="text-center"><?= $value['gender'] ?></td>
+                                <td class="text-center"><?= $value['class'] ?></td>
+                                <td class="d-flex  justify-content-center gap-3 max-w- ">
                                     <!-- old Method -->
                                     <!-- <form action="delete.php?id=<?= $value['id'] ?>" method="POST" style="display:inline;">
                                         <input type="hidden" name="id" value="<?= $value['id'] ?>">
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form> -->
                                     <!-- easy Method -->
-                                    <a href="delete.php?id=<?= $value['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
-                                    <a href="edit.php?id=<?= $value['id'] ?>" class="btn btn-danger btn-sm">Edit</a>
+                                    <a href="delete.php?id=<?= $value['id'] ?>" class="btn btn-danger btn-lg">
+                                        <i class="fa-solid fa-trash fa-lg"></i>
+                                    </a>
+                                    <a href="edit.php?id=<?= $value['id'] ?>" class="btn btn-primary btn-lg">
+                                        <i class="fa-solid fa-pencil fa-lg"></i>
+                                    </a>
+                                    <a href="edit.php?id=<?= $value['id'] ?>" class="btn btn-secondary btn-lg">
+                                        <i class="fa-solid fa-user fa-lg"></i>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
