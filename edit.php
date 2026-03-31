@@ -44,45 +44,104 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $errors[] = "class Is Required";
     }
 
-    $query = "UPDATE students SET first_name =  '$firstName', last_name = '$lastName', gender = '$gender', class = '$class' WHERE id = '$id'";
-    echo $query;
-    if (mysqli_query($connection, $query)) {
-        if (mysqli_affected_rows($connection) > 0) {
-            echo $query;
-            // header("Location: index.php");
-            // exit();
+    if (empty($errors)) {
+
+        $firstName = mysqli_real_escape_string($connection, $firstName);
+        $lastName  = mysqli_real_escape_string($connection, $lastName);
+        $gender    = mysqli_real_escape_string($connection, $gender);
+        $class     = mysqli_real_escape_string($connection, $class);
+        $id        = (int)$id;
+
+        $query = "UPDATE students 
+                  SET first_name = '$firstName', 
+                      last_name  = '$lastName', 
+                      gender     = '$gender', 
+                      class      = '$class' 
+                  WHERE id = '$id'";
+
+        if (mysqli_query($connection, $query)) {
+            if (mysqli_affected_rows($connection) > 0) {
+                header("Location: index.php");
+                exit();
+            } else {
+                echo "No changes were made.";
+            }
         } else {
-            echo "Matra walo";
+            die("Error updating user: " . mysqli_error($connection));
         }
-    } else {
-        die("Error editing user form DB" . mysqli_error($connection));
     }
 }
 
 ?>
 
-<form action="edit.php" method="POST">
-    <input type="hidden" name="id" value="<?php $id; ?>">
-    <div class="mb-3">
-        <label class="form-label">First Name</label>
-        <input type="text" name="firstname" class="form-control" value="<?= $firstName; ?>">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <!-- Header -->
+                <div class="card-header bg-white border-0 text-center">
+                    <h4 class="fw-semibold mb-0">
+                        <i class="fa-solid fa-user-pen me-2 text-primary"></i>
+                        Edit User
+                    </h4>
+                </div>
+
+                <!-- Form -->
+                <div class="card-body px-4 py-4">
+                    <form action="edit.php" method="POST">
+
+                        <input type="hidden" name="id" value="<?= $id; ?>">
+
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">First Name</label>
+                            <input type="text" name="firstname"
+                                class="form-control rounded-3"
+                                value="<?= $firstName; ?>">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Last Name</label>
+                            <input type="text" name="lastname"
+                                class="form-control rounded-3"
+                                value="<?= $lastName; ?>">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Gender</label>
+                            <input type="text" name="gender"
+                                class="form-control rounded-3"
+                                value="<?= $gender; ?>">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label small text-muted">Class</label>
+                            <input type="text" name="class"
+                                class="form-control rounded-3"
+                                value="<?= $class; ?>">
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-between">
+
+                            <a href="index.php" class="btn btn-light rounded-pill px-4">
+                                <i class="fa-solid fa-arrow-left me-1"></i> Back
+                            </a>
+
+                            <button type="submit" class="btn btn-primary rounded-pill px-4">
+                                <i class="fa-solid fa-check me-1"></i> Update
+                            </button>
+
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
     </div>
-    <div class="mb-3">
-        <label class="form-label">Last Name</label>
-        <input type="text" name="lastname" class="form-control" value="<?= $lastName ?>">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Gender</label>
-        <input type="text" name="gender" class="form-control" value="<?= $gender ?>">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Class</label>
-        <input type="text" name="class" class="form-control" value="<?= $class ?>">
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </div>
-</form>
+</div>
 
 <?php include("./includs/footer.php"); ?>
