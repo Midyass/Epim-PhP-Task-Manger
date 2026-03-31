@@ -19,10 +19,17 @@ if (!empty($_SESSION["errors"])) {
 
 ?>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
+<div class="container py-5">
+    <div class="card  border-0 rounded-4">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center border-0">
+            <h4 class="mb-0 fw-semibold">User Management</h4>
+            <button class="btn btn-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <i class="fa-solid fa-user-plus me-2"></i> Add User
+            </button>
+        </div>
+
         <?php if (!empty($errors)): ?>
-            <div class="alert alert-danger">
+            <div class="alert alert-danger m-3 rounded-3">
                 <ul class="mb-0">
                     <?php foreach ($errors as $error): ?>
                         <li><?= htmlspecialchars($error) ?></li>
@@ -30,98 +37,114 @@ if (!empty($_SESSION["errors"])) {
                 </ul>
             </div>
         <?php endif; ?>
-        <div class="d-flex justify-content-between mb-3">
-            <h3>User List</h3>
-            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                <i class="fa-solid fa-user-plus"></i> Add
-            </button>
-        </div>
 
-        <div class="table-responsive p-3 mb-5 bg-white shadow-sm rounded">
-            <table class="table table-white table-striped-columns">
-                <thead class="table-dark">
-                    <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">First</th>
-                        <th class="text-center">Last</th>
-                        <th class="text-center">gender</th>
-                        <th class="text-center">class</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (empty($students)): ?>
-                        <tr>
-                            <td colspan="5">No Data</td>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-middle table-hover">
+                    <thead class="table-light">
+                        <tr class="text-center">
+                            <th>#</th>
+                            <th>First</th>
+                            <th>Last</th>
+                            <th>Gender</th>
+                            <th>Class</th>
+                            <th>Actions</th>
                         </tr>
-                    <?php else: ?>
-                        <?php foreach ($students as $key => $value): ?>
+                    </thead>
+
+                    <tbody>
+                        <?php if (empty($students)): ?>
                             <tr>
-                                <td class="text-center"><?= $value['id']; ?></td>
-                                <td class="text-center"><?= $value['first_name'] ?></td>
-                                <td class="text-center"><?= $value['last_name'] ?></td>
-                                <td class="text-center"><?= $value['gender'] ?></td>
-                                <td class="text-center"><?= $value['class'] ?></td>
-                                <td class="d-flex  justify-content-center gap-3 max-w- ">
-                                    <!-- old Method -->
-                                    <!-- <form action="delete.php?id=<?= $value['id'] ?>" method="POST" style="display:inline;">
-                                        <input type="hidden" name="id" value="<?= $value['id'] ?>">
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                    </form> -->
-                                    <!-- easy Method -->
-                                    <a href="delete.php?id=<?= $value['id'] ?>" class="btn btn-danger btn-lg">
-                                        <i class="fa-solid fa-trash fa-lg"></i>
-                                    </a>
-                                    <a href="edit.php?id=<?= $value['id'] ?>" class="btn btn-primary btn-lg">
-                                        <i class="fa-solid fa-pencil fa-lg"></i>
-                                    </a>
-                                    <a href="edit.php?id=<?= $value['id'] ?>" class="btn btn-secondary btn-lg">
-                                        <i class="fa-solid fa-user fa-lg"></i>
-                                    </a>
+                                <td colspan="6" class="text-center text-muted py-4">
+                                    <i class="fa-solid fa-database fa-2x mb-2"></i><br>
+                                    No users found
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
+                        <?php else: ?>
+                            <?php foreach ($students as $value): ?>
+                                <tr class="text-center">
+                                    <td><?= $value['id']; ?></td>
+                                    <td><?= $value['first_name'] ?></td>
+                                    <td><?= $value['last_name'] ?></td>
+                                    <td><?= $value['gender'] ?></td>
+                                    <td><?= $value['class'] ?></td>
 
-        <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add User</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
 
-                        <form action="create.php" method="POST">
-                            <div class="mb-3">
-                                <label class="form-label">First Name</label>
-                                <input type="text" name="firstname" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" name="lastname" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Gender</label>
-                                <input type="text" name="gender" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Class</label>
-                                <input type="text" name="class" class="form-control">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                                            <a href="profile.php?id=<?= $value['id'] ?>"
+                                                class="btn btn-light btn-sm rounded-circle shadow-sm">
+                                                <i class="fa-solid fa-user text-secondary"></i>
+                                            </a>
+
+                                            <a href="edit.php?id=<?= $value['id'] ?>"
+                                                class="btn btn-light btn-sm rounded-circle shadow-sm">
+                                                <i class="fa-solid fa-pen text-primary"></i>
+                                            </a>
+
+                                            <a href="delete.php?id=<?= $value['id'] ?>"
+                                                class="btn btn-light btn-sm rounded-circle shadow-sm">
+                                                <i class="fa-solid fa-trash text-danger"></i>
+                                            </a>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
-
         </div>
     </div>
+
+    <div class="modal fade" id="addUserModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-semibold">Add New User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form action="create.php" method="POST">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">First Name</label>
+                            <input type="text" name="firstname" class="form-control rounded-3">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Last Name</label>
+                            <input type="text" name="lastname" class="form-control rounded-3">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Gender</label>
+                            <input type="text" name="gender" class="form-control rounded-3">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Class</label>
+                            <input type="text" name="class" class="form-control rounded-3">
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary rounded-pill px-4">
+                            Save
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
 </div>
 <?php include("./includs/footer.php"); ?>
