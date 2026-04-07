@@ -5,7 +5,7 @@ include("./includs/profile/header.php");
 
 $id = intval($_GET['id']);
 
-$query = "SELECT * FROM students WHERE id=$id";
+$query = "SELECT * FROM users WHERE id=$id";
 
 $result = mysqli_query($connection, $query);
 $data =  mysqli_fetch_array($result);
@@ -56,13 +56,10 @@ $data =  mysqli_fetch_array($result);
                                 <p class="mb-0">@<?= $data["first_name"] ?></p>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fa-brands fa-instagram fa-lg"></i>
-                                <p class="mb-0"><?= $data["first_name"] ?></p>
+                                <i class="fab fa-linkedin fa-lg" style="color: #55acee;"></i>
+                                <p class="mb-0">@<?= $data["first_name"] ?></p>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                                <p class="mb-0"><?= $data["first_name"] ?></p>
-                            </li>
+
                         </ul>
                     </div>
                 </div>

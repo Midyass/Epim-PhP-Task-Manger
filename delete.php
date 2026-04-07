@@ -5,7 +5,7 @@ require_once("./config/database.php");
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
-    $query = "DELETE FROM students WHERE id = $id";
+    $query = "DELETE FROM users WHERE id = $id";
 
     if (mysqli_query($connection, $query)) {
         if (mysqli_affected_rows($connection) > 0) {

@@ -12,7 +12,7 @@ $class = " ";
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $id = intval($_GET['id']);
-    $query = mysqli_query($connection, "SELECT * FROM students WHERE id = $id");
+    $query = mysqli_query($connection, "SELECT * FROM users WHERE id = $id");
     $result =  mysqli_fetch_array($query);
 
     $firstName = $result['first_name'] ?? " ";

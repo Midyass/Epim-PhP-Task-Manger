@@ -5,7 +5,7 @@ include("./delete.php");
 include("./includs/header.php");
 require_once("./config/database.php");
 
-$query = "SELECT * FROM students";
+$query = "SELECT * FROM users";
 $result = mysqli_query($connection, $query);
 $students_number = mysqli_num_rows($result);
 $students = mysqli_fetch_all($result, mode: MYSQLI_ASSOC);
