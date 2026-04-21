@@ -4,7 +4,9 @@ require_once("./config/database.php");
 $firstName = "";
 $lastName = "";
 $gender = "";
-$class = "";
+$position = "";
+$description = "";
+// $profile_img_url = "";
 
 $errors = [];
 
@@ -13,8 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $firstName = $_POST["firstname"];
     $lastName = $_POST["lastname"];
+    $position = $_POST["position"];
+    $description = $_POST["user_description"];
     $gender = $_POST["gender"];
-    $class = $_POST["class"];
+
+
 
     if (empty($firstName)) {
         $errors[] = "First Name Is Required";
@@ -25,17 +30,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (empty($gender)) {
         $errors[] = "Gender Is Required";
     }
-    if (empty($class)) {
-        $errors[] = "class Is Required";
+    if (empty($description)) {
+        $errors[] = "Description Is Required";
     }
+    if (empty($position)) {
+        $errors[] = "Position Is Required";
+    }
+
 
     if (empty($errors)) {
         $firstName = mysqli_real_escape_string($connection, $firstName);
         $lastName = mysqli_real_escape_string($connection, $lastName);
         $gender = mysqli_real_escape_string($connection, $gender);
-        $class = mysqli_real_escape_string($connection, $class);
+        $position = mysqli_real_escape_string($connection, $position);
+        $description = mysqli_real_escape_string($connection, $description);
 
-        $query = "INSERT INTO students (first_name, last_name, gender, class) values ('$firstName', '$lastName','$gender','$class')";
+        $query = "INSERT INTO users (first_name, last_name, gender, position, user_description) values ('$firstName', '$lastName','$gender','$position','$description')";
 
         if (mysqli_query($connection, $query)) {
             header('Location: index.php');
