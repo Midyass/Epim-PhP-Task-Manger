@@ -47,7 +47,6 @@ if (!empty($_SESSION["errors"])) {
                             <th>First</th>
                             <th>Last</th>
                             <th>Gender</th>
-                            <th>Class</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -67,12 +66,11 @@ if (!empty($_SESSION["errors"])) {
                                     <td><?= $value['first_name'] ?></td>
                                     <td><?= $value['last_name'] ?></td>
                                     <td><?= $value['gender'] ?></td>
-                                    <td><?= $value['class'] ?></td>
 
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
 
-                                            <a href="profile.php?id=<?= $value['id'] ?>"
+                                            <a href="./layout/portfolio.php?id=<?= $value['id'] ?>"
                                                 class="btn btn-light btn-sm rounded-circle shadow-sm">
                                                 <i class="fa-solid fa-user text-secondary"></i>
                                             </a>
@@ -85,6 +83,11 @@ if (!empty($_SESSION["errors"])) {
                                             <a href="delete.php?id=<?= $value['id'] ?>"
                                                 class="btn btn-light btn-sm rounded-circle shadow-sm">
                                                 <i class="fa-solid fa-trash text-danger"></i>
+                                            </a>
+
+                                            <a href="profile.php?id=<?= $value['id'] ?>"
+                                                class="btn btn-light btn-sm rounded-circle shadow-sm">
+                                                <i class="fa-solid fa-user-gear text-warning"></i>
                                             </a>
 
                                         </div>
@@ -122,12 +125,20 @@ if (!empty($_SESSION["errors"])) {
 
                         <div class="mb-3">
                             <label class="form-label small text-muted">Gender</label>
-                            <input type="text" name="gender" class="form-control rounded-3">
+                            <select class="form-select" name="gender" id="gender">
+                                <option value="male">male</option>
+                                <option value="female">female</option>
+                            </select>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label small text-muted">Class</label>
-                            <input type="text" name="class" class="form-control rounded-3">
+                            <label class="form-label small text-muted">Position</label>
+                            <input type="text" name="position" class="form-control rounded-3">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Description</label>
+                            <textarea type="text" name="user_description" class="form-control rounded-3"></textarea>
                         </div>
 
                     </div>
