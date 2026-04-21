@@ -1,5 +1,15 @@
 <?php
 
+require_once("../config/database.php");
+
+$id = intval($_GET['id'] ?? 1);
+
+$query = "SELECT * FROM users WHERE id=$id";
+
+$result = mysqli_query($connection, $query);
+$data =  mysqli_fetch_array($result);
+
+
 ?>
 
 <!-- Banner -->
@@ -11,10 +21,10 @@
                     class="banner-2-content position-relative z-2 pb-xl-80 pt-xl-80">
                     <div data-animation="move" data-animation-delay="1">
                         <h4 class="fs-18 text-uparcase color-theme-2 fw-700">
-                            PORTFOLIO
+                            Hello, <i class="fa-solid fa-hand-scissors" style="color: rgb(255, 212, 59);"></i>
                         </h4>
                         <h1 class="mb-18 mt-10">
-                            the <span>Power</span> of us Portfolios
+                            <span>Amine</span> Aymen
                         </h1>
                     </div>
                     <div
@@ -58,6 +68,7 @@
         </div>
     </div>
 </section>
+
 <!-- About us -->
 <section class="mt-120 bg-white" id="about">
     <div class="container">
@@ -131,8 +142,8 @@
         </div>
     </div>
 </section>
-<!-- Rusume -->
-<section class="mt-120">
+<!-- Rusume-->
+<!--<section class="mt-120">
     <div class="container">
         <div class="row">
             <div class="col-xl-8 col-lg-10 m-auto">
@@ -439,7 +450,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- lATEST PROJRCT -->
 <section class="mt-120" id="projects">
     <div class="container">
