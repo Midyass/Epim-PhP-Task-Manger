@@ -258,18 +258,14 @@
             that.buttonY += (that.cursorY - that.buttonY) * 0.2;
             that.contentX += (that.cursorX - that.contentX) * 0.2;
             that.contentY += (that.cursorY - that.contentY) * 0.2;
-            let buttonTranslateX = `translateX(${
-              that.buttonX * that.magnetism
-            }%)`;
-            let buttonTranslateY = `translateY(${
-              that.buttonY * that.magnetism
-            }%)`;
-            let contentTranslateX = `translateX(${
-              (-that.contentX * that.magnetism) / 2
-            }%)`;
-            let contentTranslateY = `translateY(${
-              (-that.contentY * that.magnetism) / 2
-            }%)`;
+            let buttonTranslateX = `translateX(${that.buttonX * that.magnetism
+              }%)`;
+            let buttonTranslateY = `translateY(${that.buttonY * that.magnetism
+              }%)`;
+            let contentTranslateX = `translateX(${(-that.contentX * that.magnetism) / 2
+              }%)`;
+            let contentTranslateY = `translateY(${(-that.contentY * that.magnetism) / 2
+              }%)`;
             that.target.style.transform =
               buttonTranslateX + " " + buttonTranslateY;
             that.content.style.transform =
