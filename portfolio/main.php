@@ -21,14 +21,29 @@ $project_result = mysqli_query($connection, $project_query);
 $projects = mysqli_fetch_all($project_result, MYSQLI_ASSOC);
 
 
+
 // // skills query 
 
 $skills_query = "SELECT stack_items FROM skills where user_id = $id";
 $skills_result = mysqli_query($connection, $skills_query);
 $skills = mysqli_fetch_all($skills_result);
 
-print_r($skills);
+// experience 
 
+$exp_query = "SELECT 
+       start_date,
+       end_date,
+       company_name,
+       company_location,
+       post_title,
+       post_description
+FROM experience
+WHERE user_id = $id
+ORDER BY id DESC
+LIMIT 3;";
+
+$exp_result = mysqli_query($connection, $exp_query);
+$exp_data = mysqli_fetch_all($exp_result, MYSQLI_ASSOC);
 
 
 ?>
@@ -707,7 +722,8 @@ print_r($skills);
         </div>
     </div>
 </section>
-<!-- Testimonial -->
+
+<!-- Testimonialx
 <section
     class="testimonial-2-bg mt-120 bg-white ml-80 mr-80 mr-xl-40 ml-xl-40 mr-md-15 ml-md-15 br-20 overflow-hidden position-relative">
     <div class="container">
@@ -796,8 +812,8 @@ print_r($skills);
             </div>
         </div>
     </div>
-</section>
-<!-- Wtach Highlight -->
+</section> -->
+<!-- Wtach Highlight
 <section class="mt-120">
     <div class="container">
         <div class="row align-items-center gap-lg-30">
@@ -827,128 +843,61 @@ print_r($skills);
             </div>
         </div>
     </div>
-</section>
+</section> -->
+
 <!-- Blog -->
 <section class="mt-120" id="blog" data-pin>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xxl-6 col-lg-9">
                 <div class="text-center" data-animation="move">
-                    <h4 class="sub-title-2-arrows mb-10">lATEST bLOG nEWS</h4>
+                    <h4 class="sub-title-2-arrows mb-10">Experience</h4>
                     <h2 class="section-title">
                         Personalize Portfolio Amplify Impact
                     </h2>
                 </div>
             </div>
         </div>
+
         <div class="row mt-60 gap-lg-30">
-            <div
-                class="col-lg-4"
-                data-animation="fade"
-                data-animation-direction="bottom"
-                data-animation-duration="1.15">
-                <div class="blog-item">
-                    <div class="position-relative">
-                        <img src="../assets/img/blog-1.png" class="img-fluid w-100" alt="" />
-                        <div class="date">
-                            <h3>16</h3>
-                            <p>Mar</p>
-                        </div>
-                        <div class="blog-item-info">
-                            <div class="info">
-                                <i class="fa-light fa-comments"></i>
-                                <p>Comments (05)</p>
+            <?php foreach ($exp_data as $exp): ?>
+                <div
+                    class="col-lg-4"
+                    data-animation="fade"
+                    data-animation-direction="bottom"
+                    data-animation-duration="1.15">
+                    <div class="blog-item">
+                        <div class="position-relative">
+                            <img src="../assets/img/blog-1.png" class="img-fluid w-100" alt="" />
+                            <div class="blog-item-info">
+                                <div class="info">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <p>
+                                        From <?= date('m/y', strtotime($exp['start_date'])) ?>
+
+                                    </p>
+                                    <p>
+                                        To <?= date('m/y', strtotime($exp['end_date'])) ?>
+                                    </p>
+                                </div>
+                                <div class="info">
+                                    <i class="fa-regular fa-building"></i>
+                                    <p><?= $exp['company_name'] ?></p>
+                                </div>
                             </div>
-                            <div class="info">
-                                <i class="fa-light fa-user"></i>
-                                <p>By admin</p>
-                            </div>
                         </div>
-                    </div>
-                    <div class="blog-item-content">
-                        <h3>
-                            <a href="#">Showcase Your Skills, Land Your Dream Job</a>
-                        </h3>
-                        <p>
-                            Corporate businesses typically offerings services such as
-                            man consulting
-                        </p>
-                        <a href="#" class="btn-read-more theme-btn-3">Read More <i class="fa-regular fa-arrow-right-long"></i></a>
+                        <div class="blog-item-content">
+                            <h3>
+                                <a href="#"><?php echo $exp["post_title"] ?></a>
+                            </h3>
+                            <p>
+                                <?php echo $exp["post_description"] ?>
+                            </p>
+                            <a href="#" class="btn-read-more theme-btn-3">Read More <i class="fa-regular fa-arrow-right-long"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div
-                class="col-lg-4"
-                data-animation="fade"
-                data-animation-delay="0.2"
-                data-animation-duration="1.15"
-                data-animation-direction="bottom">
-                <div class="blog-item">
-                    <div class="position-relative">
-                        <img src="../assets/img/blog-2.png" class="img-fluid w-100" alt="" />
-                        <div class="date">
-                            <h3>16</h3>
-                            <p>Mar</p>
-                        </div>
-                        <div class="blog-item-info">
-                            <div class="info">
-                                <i class="fa-light fa-comments"></i>
-                                <p>Comments (05)</p>
-                            </div>
-                            <div class="info">
-                                <i class="fa-light fa-user"></i>
-                                <p>By admin</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-item-content">
-                        <h3>
-                            <a href="#">Showcase Your Skills, Land Your Dream Job</a>
-                        </h3>
-                        <p>
-                            Corporate businesses typically offerings services such as
-                            man consulting
-                        </p>
-                        <a href="#" class="btn-read-more theme-btn-3">Read More <i class="fa-regular fa-arrow-right-long"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="col-lg-4"
-                data-animation="fade"
-                data-animation-delay="0.4"
-                data-animation-duration="1.15"
-                data-animation-direction="bottom">
-                <div class="blog-item">
-                    <div class="position-relative">
-                        <img src="../assets/img/blog-3.png" class="img-fluid w-100" alt="" />
-                        <div class="date">
-                            <h3>16</h3>
-                            <p>Mar</p>
-                        </div>
-                        <div class="blog-item-info">
-                            <div class="info">
-                                <i class="fa-light fa-comments"></i>
-                                <p>Comments (05)</p>
-                            </div>
-                            <div class="info">
-                                <i class="fa-light fa-user"></i>
-                                <p>By admin</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-item-content">
-                        <h3>
-                            <a href="#">Showcase Your Skills, Land Your Dream Job</a>
-                        </h3>
-                        <p>
-                            Corporate businesses typically offerings services such as
-                            man consulting
-                        </p>
-                        <a href="#" class="btn-read-more theme-btn-3">Read More <i class="fa-regular fa-arrow-right-long"></i></a>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach ?>
         </div>
     </div>
 </section>
