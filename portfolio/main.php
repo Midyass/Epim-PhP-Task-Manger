@@ -9,6 +9,15 @@ $query = "SELECT * FROM users WHERE id=$id";
 $result = mysqli_query($connection, $query);
 $data =  mysqli_fetch_array($result);
 
+$project_count_query = "SELECT COUNT(*) as pc FROM projects where user_id = $id and status = 'Completed'";
+$project_count_result = mysqli_query($connection, $project_count_query);
+$project_count = mysqli_fetch_assoc($project_count_result);
+
+
+$project_query = "SELECT name, description, img_url_1 FROM projects where user_id = $id ORDER BY id DESC LIMIT 3";
+$project_result = mysqli_query($connection, $project_query);
+
+$projects = mysqli_fetch_all($project_result, MYSQLI_ASSOC);
 
 ?>
 
@@ -24,7 +33,7 @@ $data =  mysqli_fetch_array($result);
                             Hello, <i class="fa-solid fa-hand-scissors" style="color: rgb(255, 212, 59);"></i>
                         </h4>
                         <h1 class="mb-18 mt-10">
-                            <span>Amine</span> Aymen
+                            <span><?php echo $data["first_name"] ?></span> <?php echo $data["last_name"] ?>
                         </h1>
                     </div>
                     <div
@@ -104,23 +113,18 @@ $data =  mysqli_fetch_array($result);
                 <div class="ml-30">
                     <div data-animation="fade" data-animation-direction="bottom">
                         <p>
-                            Working with this company has been a game-changer for my
-                            business. Their expertise and innovat approach have a helped
-                            us a remarkable Working with this company has been a game
+                            <?php echo $data["user_description"] ?>
                         </p>
                     </div>
                     <div
                         class="d-flex flex-column flex-sm-row gap-80 gap-sm-30 mt-40">
-                        <div
-                            class="counter-2-item"
-                            data-animation="fade"
-                            data-animation-direction="bottom">
+                        <div>
                             <h3 class="fs-60 fs-md-40 fw-70 mb-15">
-                                <span class="count">25</span>k
+                                <span data-count="<?php echo intval($project_count["pc"]) ?>"><?php echo intval($project_count["pc"]) ?></span>k
                             </h3>
                             <p>Project Done</p>
                         </div>
-                        <div
+                        <!-- <div
                             class="counter-2-item"
                             data-animation="fade"
                             data-animation-direction="bottom"
@@ -129,7 +133,7 @@ $data =  mysqli_fetch_array($result);
                                 <span class="count">302</span>+
                             </h3>
                             <p>Project Win</p>
-                        </div>
+                        </div> -->
                     </div>
                     <div
                         data-animation="fade"
@@ -481,7 +485,25 @@ $data =  mysqli_fetch_array($result);
             data-animation="fade"
             data-animation-direction="bottom">
             <div class="row gap-md-30">
-                <div class="col-md-3">
+                <?php $columns = ['col-md-3', 'col-md-6', 'col-md-3']; ?>
+                <?php foreach ($projects as $index => $project) : ?>
+                    <div class="<?php echo $columns[$index]; ?>">
+                        <div class="portfolio-item">
+                            <img
+                                src="..<?php echo $project['img_url_1'] ?>"
+                                class="w-100 img-fluid br-10"
+                                alt="" />
+                            <div class="portfolio-content">
+                                <h3>
+                                    <?php echo $project["name"] ?>
+                                </h3>
+                                <p><?php echo $project["description"] ?></p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach ?>
+
+                <!-- <div class="col-md-3">
                     <div class="portfolio-item">
                         <img
                             src="../assets/img/portfolio-2.png"
@@ -489,7 +511,7 @@ $data =  mysqli_fetch_array($result);
                             alt="" />
                         <div class="portfolio-content">
                             <h3>
-                                Personalize Your Portfolio, Amplify Your Impact The Best
+
                             </h3>
                             <p>Social Media Management</p>
                         </div>
@@ -522,7 +544,7 @@ $data =  mysqli_fetch_array($result);
                             <p>Social Media Management</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -657,7 +679,7 @@ $data =  mysqli_fetch_array($result);
                         <img
                             data-animation="fade"
                             data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-6.png"
+                            src="../assets/icons/Github-Dark.svg"
                             alt="" />
                     </div>
                 </div>
