@@ -9,15 +9,27 @@ $query = "SELECT * FROM users WHERE id=$id";
 $result = mysqli_query($connection, $query);
 $data =  mysqli_fetch_array($result);
 
+// query projects number
 $project_count_query = "SELECT COUNT(*) as pc FROM projects where user_id = $id and status = 'Completed'";
 $project_count_result = mysqli_query($connection, $project_count_query);
 $project_count = mysqli_fetch_assoc($project_count_result);
 
-
+// query projects
 $project_query = "SELECT name, description, img_url_1 FROM projects where user_id = $id ORDER BY id DESC LIMIT 3";
 $project_result = mysqli_query($connection, $project_query);
 
 $projects = mysqli_fetch_all($project_result, MYSQLI_ASSOC);
+
+
+// // skills query 
+
+$skills_query = "SELECT stack_items FROM skills where user_id = $id";
+$skills_result = mysqli_query($connection, $skills_query);
+$skills = mysqli_fetch_all($skills_result);
+
+print_r($skills);
+
+
 
 ?>
 
@@ -674,114 +686,23 @@ $projects = mysqli_fetch_all($project_result, MYSQLI_ASSOC);
     <div class="container">
         <div class="brands">
             <div class="row p-0">
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/icons/Github-Dark.svg"
-                            alt="" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-7.png"
-                            alt="" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-8.png"
-                            alt="" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-9.png"
-                            alt="" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-10.png"
-                            alt="" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-11.png"
-                            alt="" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-12.png"
-                            alt="" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-13.png"
-                            alt="" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-14.png"
-                            alt="" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-15.png"
-                            alt="" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-16.png"
-                            alt="" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-4">
-                    <div class="brand-item">
-                        <img
-                            data-animation="fade"
-                            data-animation-direction="bottom"
-                            src="../assets/img/brand/brand-17.png"
-                            alt="" />
-                    </div>
-                </div>
+                <?php foreach ($skills as $skill): ?>
+
+                    <?php
+                    $items = json_decode($skill[0], true);
+                    ?>
+
+                    <?php foreach ($items as $si): ?>
+                        <div class="col-lg-2 col-4">
+                            <div class="brand-item">
+                                <img
+                                    src="../assets/icons/<?= $si ?>.svg"
+                                    alt="<?= $si ?>">
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
